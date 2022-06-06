@@ -5,11 +5,11 @@ FLAGS=-Wall -g
 
 all: main
 
-main: main.o libufs.a
-	$(CC) $(FLAGS) -o main main.o libufs.a
+main: main.o libufs.so
+	$(CC) $(FLAGS) -o main main.o ./libufs.so
 
-libufs.a: block.o inode.o superBlock.o
-	$(AR) -rcs libufs.a block.o inode.o superBlock.o
+libufs.so: block.o inode.o superBlock.o
+	$(CC) -shared -fPIC -o libufs.so block.o inode.o superBlock.o
 
 main.o: main.cpp
 	$(CC) $(FLAGS) -c main.cpp
